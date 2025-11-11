@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adalberto Alves | Personal Dog Training</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="login-overlay" id="loginOverlay">
+      <div class="login-card">
+        <div class="login-header">
+          <img
+            src="https://images.unsplash.com/photo-1546484428-90c24484f09d?auto=format&fit=crop&w=200&q=80"
+            alt="Adalberto Alves"
+          />
+          <div>
+            <h1>Adalberto Alves</h1>
+            <p>Personal Dog Training</p>
+          </div>
+        </div>
+        <form id="loginForm">
+          <label for="loginPassword">Senha de acesso</label>
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Digite a senha"
+            autocomplete="current-password"
+            required
+          />
+          <button type="submit" class="primary-button">Entrar no painel</button>
+          <p class="login-hint">
+            Distribua esta senha com clientes autorizados para acessar o portal.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <header class="top-bar">
+      <div class="branding">
+        <div class="profile-frame">
+          <img
+            src="https://images.unsplash.com/photo-1583511655857-d19b40f33199?auto=format&fit=crop&w=200&q=80"
+            alt="Foto de Adalberto Alves"
+          />
+        </div>
+        <div class="identity">
+          <h1>Adalberto Alves</h1>
+          <span>Personal Dog Training</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="openMediaUpload" class="primary-button">Adicionar mídia</button>
+        <button id="openClientModal" class="secondary-button">Novo cliente</button>
+        <button id="openNotificationModal" class="outline-button">
+          Nova notificação
+        </button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel accent-glow" id="mediaPanel">
+        <div class="panel-header">
+          <h2>Galeria compartilhada</h2>
+          <div class="panel-actions">
+            <select id="mediaClientFilter">
+              <option value="all">Todos os clientes</option>
+            </select>
+            <button id="refreshMedia" class="ghost-button">Atualizar</button>
+          </div>
+        </div>
+        <div class="panel-body media-grid" id="mediaGrid"></div>
+        <p class="panel-hint">
+          Utilize vídeos curtos e fotos de progresso para manter seus clientes motivados.
+        </p>
+      </section>
+
+      <section class="panel" id="clientPanel">
+        <div class="panel-header">
+          <h2>Clientes ativos</h2>
+          <button id="addClientInline" class="ghost-button">Adicionar</button>
+        </div>
+        <div class="panel-body" id="clientList"></div>
+      </section>
+
+      <section class="panel" id="receiptPanel">
+        <div class="panel-header">
+          <h2>Comprovantes de pagamento</h2>
+          <button id="createReceiptButton" class="ghost-button">Gerar comprovante</button>
+        </div>
+        <div class="panel-body" id="receiptList"></div>
+      </section>
+
+      <section class="panel" id="notificationPanel">
+        <div class="panel-header">
+          <h2>Notificações &amp; lembretes</h2>
+        </div>
+        <div class="panel-body" id="notificationList"></div>
+      </section>
+    </main>
+
+    <dialog id="mediaDialog" class="modal">
+      <form method="dialog" class="modal-card" id="mediaForm">
+        <h3>Enviar fotos e vídeos</h3>
+        <label for="mediaFile">Selecionar arquivo</label>
+        <input id="mediaFile" type="file" accept="image/*,video/*" required />
+        <label for="mediaTitle">Título ou descrição</label>
+        <input id="mediaTitle" type="text" placeholder="Ex: Progresso da semana 4" />
+        <label for="mediaClient">Vincular cliente</label>
+        <select id="mediaClient">
+          <option value="all">Compartilhar com todos</option>
+        </select>
+        <div class="modal-actions">
+          <button type="submit" class="primary-button">Salvar</button>
+          <button type="button" class="outline-button close-modal">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="clientDialog" class="modal">
+      <form method="dialog" class="modal-card" id="clientForm">
+        <h3>Cadastro de cliente</h3>
+        <input type="hidden" id="clientId" />
+        <label for="clientName">Nome do cliente</label>
+        <input id="clientName" type="text" required />
+        <label for="dogName">Nome do cão</label>
+        <input id="dogName" type="text" required />
+        <label for="breed">Raça</label>
+        <input id="breed" type="text" />
+        <label for="trainingPlan">Plano de treinamento</label>
+        <input id="trainingPlan" type="text" placeholder="Ex: Treino Obediência Avançada" />
+        <label for="clientEmail">E-mail</label>
+        <input id="clientEmail" type="email" placeholder="cliente@email.com" />
+        <label for="clientPhone">Telefone</label>
+        <input id="clientPhone" type="tel" placeholder="(11) 99999-9999" />
+        <label for="clientNotes">Anotações</label>
+        <textarea
+          id="clientNotes"
+          rows="3"
+          placeholder="Metas, comportamentos, combinações especiais..."
+        ></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="primary-button">Salvar cliente</button>
+          <button type="button" class="outline-button close-modal">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="receiptDialog" class="modal">
+      <form method="dialog" class="modal-card" id="receiptForm">
+        <h3>Novo comprovante</h3>
+        <label for="receiptClient">Cliente</label>
+        <select id="receiptClient" required></select>
+        <label for="receiptAmount">Valor (R$)</label>
+        <input id="receiptAmount" type="number" step="0.01" required />
+        <label for="receiptService">Serviço</label>
+        <input id="receiptService" type="text" placeholder="Ex: Sessão de adestramento" />
+        <label for="receiptPaymentMethod">Forma de pagamento</label>
+        <input id="receiptPaymentMethod" type="text" placeholder="Pix, cartão, dinheiro..." />
+        <label for="receiptDate">Data do pagamento</label>
+        <input id="receiptDate" type="date" required />
+        <label for="receiptNotes">Observações</label>
+        <textarea id="receiptNotes" rows="3"></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="primary-button">Gerar comprovante</button>
+          <button type="button" class="outline-button close-modal">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="notificationDialog" class="modal">
+      <form method="dialog" class="modal-card" id="notificationForm">
+        <h3>Enviar notificação</h3>
+        <label for="notificationTitle">Título</label>
+        <input id="notificationTitle" type="text" placeholder="Sessão confirmada" required />
+        <label for="notificationMessage">Mensagem</label>
+        <textarea
+          id="notificationMessage"
+          rows="4"
+          placeholder="Olá! Nossa próxima sessão será..."
+          required
+        ></textarea>
+        <label for="notificationAudience">Destinatário</label>
+        <select id="notificationAudience">
+          <option value="all">Todos os clientes</option>
+        </select>
+        <div class="modal-actions">
+          <button type="submit" class="primary-button">Enviar</button>
+          <button type="button" class="outline-button close-modal">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
